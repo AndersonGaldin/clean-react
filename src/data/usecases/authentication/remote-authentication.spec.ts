@@ -6,7 +6,7 @@ type SutTypes = {
   httpPostClientSpy: HtppPostClientSpy
 }
 
-const makeSut = (url: string = ''): SutTypes => {
+const makeSut = (url: string = 'any_url'): SutTypes => {
   const httpPostClientSpy = new HtppPostClientSpy()
   const sut = new RemoteAuthentication(url, httpPostClientSpy)
   return {
@@ -18,7 +18,7 @@ const makeSut = (url: string = ''): SutTypes => {
 describe('RemoteAuthentication', () => {
   test('Should call HttpPostClient with correct URL', async () => {
     const url = 'other_url'
-    const {sut: sut, httpPostClientSpy } = makeSut
+    const { sut, httpPostClientSpy } = makeSut(url)
     await sut.auth()
     expect(httpPostClientSpy.url).toBe(url)
   })
